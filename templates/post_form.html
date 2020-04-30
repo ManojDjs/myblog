@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="content-section">
+        <form method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend class="border-bottom mb-4">New Post</legend>
+                {{ form }}
+            </fieldset>
+            <button type="submit" class="btn btn-outline-info">
+                Add Post
+            </button>
+        </form>
+    </div>
+{% endblock content %}

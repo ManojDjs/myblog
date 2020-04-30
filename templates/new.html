@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load plotly_dash %}
+{% load static %}
+{% block content %}
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+  <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+  <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+ <div class="col-md-6 offset-md-3">
+
+{{ plot1 | safe }}
+     </div>
+{% endblock %}

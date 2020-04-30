@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+<!--{% load static %}-->
+{% block content %}
+{% load plotly_dash %}
+<h1 class="text-center"> COVID-19 Analytics</h1>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+  <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+  <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+<div class="container">
+  {{ world| safe }}
+</div>
+<div class="row">
+  <div class="col-12 col-md-8">
+      {{ plot1 | safe }}
+  </div>
+  <div class="col-6 col-md-4">
+      {{ piechart | safe }}
+  </div>
+</div>
+
+
+
+<!--script for coutry data-->
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+    <h4 class="text-center">LIVE DATA OF COVID-19 VIRUS</h4>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+            <th scope="col"><p class="text-uppercase">country</p></th>
+            <th scope="col"><p class="text-uppercase">cases</p></th>
+            <th scope="col"><p class="text-uppercase">deaths</p></th>
+            <!--      <th scope="col"><p class="text-uppercase">region</p></th>-->
+            <th scope="col"><p class="text-uppercase">recovered</p></th>
+            <th scope="col"><p class="text-uppercase">new_deaths</p></th>
+            <th scope="col"><p class="text-uppercase">new_cases</p></th>
+            <th scope="col"><p class="text-uppercase">serious</p></th>
+            <th scope="col"><p class="text-uppercase">active_cases</p></th>
+            <th scope="col"><p class="text-uppercase">cases_per_1m_population</p></th>
+        </tr>
+      </thead>
+      <tbody>
+         {% for i  in country %}
+         <tr >
+         {% for key, value in i.items %}
+
+          <td>{{ value }}</td>
+
+      {% endfor %}
+
+        </tr>
+
+        {% endfor %}
+         </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!--second section-->
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="shadow p-3 mb-5 bg-white rounded" >
+            <img src="{% static 'images/plot.png' %}" class="img-thumbnail" width="600",height="500">
+            </div>
+        </div>
+<!--      script for total table-->
+      <div class="col">
+        <h4 class="text-center">Total World Statistics</h4>
+         <div class="shadow p-3 mb-5 bg-white rounded">
+            <table class="table">
+                  <thead class="thead" style="border-color:blue;">
+                    <tr>
+                      <th scope="col">Section</th>
+                      <th scope="col">count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for key, value in result.total.items %}
+                    <tr >
+                        <td><p class="text-uppercase">{{ key}}</p></td>
+                        <td>{{ value }}</td>
+                    </tr>
+
+                  {% endfor %}
+                  </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+{% endblock %}

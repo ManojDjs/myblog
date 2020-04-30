@@ -1,0 +1,13 @@
+{% load qr_code %}
+{% block content %}
+<h3>Add contact '{{ contact_detail.first_name }} {{ contact_detail.last_name }}' to phone book</h3>
+{% qr_for_contact contact_detail options=options_example %}
+<img src="{% qr_from_text 'Hello World!'  size='t' image_format='svg' %}" >
+
+<h3>Open Google Maps App at location: ({{ google_maps_coordinates }})</h3>
+{% qr_for_google_maps latitude=google_maps_coordinates.latitude longitude=google_maps_coordinates.longitude options=options_example %}
+
+<h3>Watch YouTube video '{{ video_id }}'</h3>
+{% qr_for_youtube video_id options=options_example %}
+<img src="{% qr_from_text 'manoj' %}" alt="Hello World!">
+{% endblock %}

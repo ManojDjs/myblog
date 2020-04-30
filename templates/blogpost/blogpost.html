@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+{% for post in posts %}
+<div class="col-md-6 offset-md-3">
+ <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                <article class="media content-section">
+                    <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" height="50px" width="50px">
+                    <br>
+                  <div class="media-body">
+                    <div class="article-metadata">
+                    <h3> <a class="mr-2" href="#">{{ post.author }}</a></h3>
+                      <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                    </div>
+                    <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+                    <p class="article-content">{{ post.content }}</p>
+                  </div>
+                </article>
+                 </div>
+            </div>
+            {% endfor %}
+{% else %}
+<div class="col-md-6 offset-md-3">
+<div class="shadow p-3 mb-5 bg-white rounded">
+<div class="container">
+<h1><mark>Login/signup</mark> to view the posts</h1>
+    </div>
+</div>
+</div>
+{% endif %}
+
+
+{% endblock %}

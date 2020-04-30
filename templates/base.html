@@ -1,0 +1,121 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+    <link rel="stylesheet" href="leaflet.css">
+    <script src="jquery-2.1.0.min.js"></script>
+    <script src="leaflet.js"></script>
+    <script src="osmfield.js"></script>
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+<!--       .navbar {-->
+<!--  min-height: 80px;-->
+<!--}-->
+
+<!--.navbar-brand {-->
+<!--  padding: 0 15px;-->
+<!--  height: 80px;-->
+<!--  line-height: 80px;-->
+<!--}-->
+<!--&lt;!&ndash;.nav a{&ndash;&gt;-->
+<!--&lt;!&ndash;    color: !important;&ndash;&gt;-->
+<!--&lt;!&ndash;    font-size: 1.8em !important;&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--.navbar-toggle {-->
+<!--  /* (80px - button height 34px) / 2 = 23px */-->
+<!--  margin-top: 23px;-->
+<!--  padding: 9px 10px !important;-->
+<!--}-->
+
+<!--@media (min-width: 768px) {-->
+<!--  .navbar-nav > li > a {-->
+<!--    /* (80px - line-height of 27px) / 2 = 26.5px */-->
+<!--    padding-top: 26.5px;-->
+<!--    padding-bottom: 26.5px;-->
+<!--    line-height: 27px;-->
+<!--  }-->
+<!--}-->
+    </style>
+  </head>
+  <body>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a class="navbar-brand" href="#"  style="color: !important;font-size: 1.8em !important;">COVID_19</a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'index' %}" style="color: !important;font-size: 1.5em !important;">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'posts' %}" style="color: !important;font-size: 1.5em !important;">Posts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'statistics' %}" style="color: !important;font-size: 1.5em !important;">Statistics</a>
+      </li>
+    </ul>
+      {% if user.is_authenticated %}
+    <ul class="nav justify-content-end">
+<!--      <li class="nav-item active">-->
+         <a class="nav-link" href="{% url 'post-create' %}"  style="color: !important;font-size: 1.2em !important;">New Post <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url 'logout_user' %}"  style="color: !important;font-size: 1.2em !important;">Logout <span class="sr-only">(current)</span></a>
+      <a class="nav-link" href="{% url 'profile' %}"  style="color: !important;font-size: 1.2em !important;">Profile <span class="sr-only">(current)</span></a>
+<!--      </li>-->
+      {% else %}
+<!--    <li class="nav-item ">-->
+        <a class="nav-link" href="{% url 'login_user' %}"  style="color: !important;font-size: 1.2em !important;">Login</a>
+<!--      </li>-->
+
+        <a class="nav-link" href="{% url 'register_user' %}"  style="color: !important;font-size: 1.2em !important;">Sign UP</a>
+
+    </ul>
+      {% endif %}
+
+
+  </div>
+</nav>
+   <br>
+    <br>
+    <br>
+    <div>
+{% if messages %}
+    {% for i in messages %}
+    <div class="alert alert-primary" role="alert">
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+      {{ i }}
+    </div>
+    {% endfor %}
+    {% endif %}
+{% block content %}
+{% endblock %}
+    <br>
+     <br>
+     <br>
+     <br>
+        </div>
+<nav class="navbar fixed-bottom navbar-light bg-light">
+  <div class="col-md-6 offset-md-3">
+  <h6 class="text-center">Copyright by @djsmanoj</h6>
+  </div>
+</nav>
+</body>
+</html>

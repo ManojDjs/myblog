@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% if messages %}
+    {% for i in messages %}
+    <div class="alert alert-primary" role="alert">
+    {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+<div class="col-md-6 offset-md-3">
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-interval="1000">
+       <img src="{% static 'images/virus3.jpg' %}" class="img-thumbnail" style="width:840px;height:360px" >
+      <div class="carousel-caption d-none d-md-block">
+        <h5>COVID 19 Dangerious</h5>
+        <p>Always be away</p>
+      </div>
+    </div>
+    <div class="carousel-item" data-interval="1000">
+      <img src="{% static 'images/virus2.jpg' %}"  class="img-thumbnail" style="width:840px;height:360px">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Maintain social distance</h5>
+        <p>This is an remedy because no medecine available upto now.</p>
+      </div>
+    </div>
+    <div class="carousel-item" data-interval="1000">
+     <img src="{% static 'images/virus1.jpg' %}"  class="img-thumbnail" style="width:840px;height:360px">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Take precautions</h5>
+        <p>This might save you from spreading disease.</p>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
+<div class="col-md-6 offset-md-3">
+    <div class="container">
+<!--      <iframe  src="https://www.youtube.com/watch?v=sHP0UIdZyI4">-->
+<!--        </iframe>-->
+      <h3>what is corona virus?</h3>
+        <p>Coronaviruses are a family of viruses that cause disease in animals. Seven, including the new virus, have made the jump to humans, but most just cause <a href="https://www.telegraph.co.uk/global-health/science-and-disease/coronavirus-symptoms-covid-smell-fever-cough/">cold-like symptoms</a>.</p>
+        <p style="">Covid-19 is closely related to severe acute respiratory syndrome (Sars) which swept around the world in 2002 to 2003. That virus infected around 8,000 people and killed about 800 but it soon ran itself out, largely because most of those&nbsp;infected were seriously ill so it was easier to control.</p>
+        <p style="">Another coronavirus is&nbsp;<a href="https://www.telegraph.co.uk/news/0/coronavirus-vs-sars-mers-flu-how-deaths-compare-covid-19/">Middle East respiratory syndrome (Mers)</a>, cases of which have been occurring sporadically since it first emerged in 2012 - there have been around 2,500 cases and nearly 900 deaths.&nbsp;</p>
+        <iframe width="700" height="345" src="https://www.youtube.com/embed/sHP0UIdZyI4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <br>
+  </div>
+</div>
+
+
+<div class="col-md-6 offset-md-3">
+
+
+     <h1 class="text-center">Symptoms of the disease</h1>
+  <div class="container">
+     <ul class="list-group">
+         <li class="list-group-item">It is not always possible to know when people were first infected, especially if they may have received several 'doses' of virus.</li>
+         <li class="list-group-item">There seems to be significant variation in the length of time it takes people to develop symptoms.</li>
+         <li class="list-group-item">Some countries only test (and confirm) coronavirus in people with severe infection, and it's not known if the incubation period for people with critical/severe/moderate/mild infection is different.</li>
+         <li class="list-group-item">It's thought that many people do not develop symptoms (they are 'asymptomatic') so there are no symptoms to count back from.</li>
+     </ul>
+    <br>
+  </div>
+     <img src="{% static 'images/covid.jpg' %}" class="img-fluid">
+</div>
+
+
+
+{%  endblock %}

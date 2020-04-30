@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+         {% if user.is_authenticated %}
+<div class="col-md-6 offset-md-3">
+     <div class="shadow p-3 mb-5 bg-white rounded">
+                    <article class="media content-section">
+                        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" height="50px" width="50px">
+                      <div class="media-body">
+                        <div class="article-metadata">
+                            <div class="float-sm-left">
+                          <a class="mr-2" href="#">{{ object.author }}</a>
+                          <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+                                </div>
+                             <div class="float-sm-right">
+                             {% if object.author == user %}
+
+                                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+                                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+
+                             {% endif %}
+                                 </div>
+                        </div>
+                          <br>
+                        <h2><a class="article-title" href="#">{{ object.title }}</a></h2>
+                        <p class="article-content">{{ object.content }}</p>
+                      </div>
+                    </article>
+                     </div>
+                </div>
+    {% else %}
+<div class="col-md-6 offset-md-3">
+    <div class="shadow p-3 mb-5 bg-white rounded">
+    <div class="container">
+    <h1><mark>Login/signup</mark> to view the posts</h1>
+        </div>
+    </div>
+</div>
+    {% endif %}
+
+
+{% endblock %}

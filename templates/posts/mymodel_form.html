@@ -1,0 +1,48 @@
+{% extends "posts/postbase.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <script type="application/javascript">
+
+$(function() {
+
+  $('button#getvalues').click(function() {
+    $('pre#values').text(
+      'address: '+$('input[name=yourhome]').val()+'\n'+
+      'latitude: '+$('input[name=yourhome_lat]').val()+'\n'+
+      'longitude: '+$('input[name=yourhome_lon]').val()
+    );
+  });
+
+});
+</script>
+
+  {{ form.media }}
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Save" />
+  </form>
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+    x.innerHTML="Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+
+{% endblock %}
