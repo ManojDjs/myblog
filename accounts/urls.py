@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^index',views.index,name='index'),
     url(r'^register_user',views.register_user, name='register_user'),
     url(r'^profile',views.profile, name='profile'),
-
+    url(r'^donate',views.donate,name='donate'),
 ]
 if settings.DEBUG:
     urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

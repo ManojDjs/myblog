@@ -73,6 +73,8 @@
     </ul>
       {% if user.is_authenticated %}
     <ul class="nav justify-content-end">
+         <a class="nav-link" href="{% url 'donate' %}"  style="color: !important;font-size: 1.2em !important;">Donate <span class="sr-only">(current)</span></a>
+
 <!--      <li class="nav-item active">-->
          <a class="nav-link" href="{% url 'post-create' %}"  style="color: !important;font-size: 1.2em !important;">New Post <span class="sr-only">(current)</span></a>
         <a class="nav-link" href="{% url 'logout_user' %}"  style="color: !important;font-size: 1.2em !important;">Logout <span class="sr-only">(current)</span></a>
@@ -112,10 +114,10 @@
      <br>
      <br>
         </div>
-<nav class="navbar fixed-bottom navbar-light bg-light">
-  <div class="col-md-6 offset-md-3">
-  <h6 class="text-center">Copyright by @djsmanoj</h6>
-  </div>
-</nav>
+<footer class="py-5 bg-black">
+        <div class="container">
+            <p class="text-center text-white m-0 small">@food_poverty</p>
+        </div>
+</footer>
 </body>
 </html>

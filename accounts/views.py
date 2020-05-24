@@ -6,7 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
-
+def donate(request):
+    return render(request, 'donate.html')
 def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
