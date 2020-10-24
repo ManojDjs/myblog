@@ -84,124 +84,127 @@ def scan(request):
 
 
 def statistics(request):
-    api = requests.get("https://api.thevirustracker.com/free-api?global=stats")
-    result = api.json()['results']
-    url = "https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php"
+    try:
+        api = requests.get("https://api.thevirustracker.com/free-api?global=stats")
+        result = api.json()['results']
+        url = "https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php"
 
-    headers = {
-        'x-rapidapi-host': "coronavirus-monitor.p.rapidapi.com",
-        'x-rapidapi-key': "db5da9c3bcmsh732ce95c62ebea7p19777ejsn61d83d88dea6"
-    }
-    response = requests.request("GET", url, headers=headers)
+        headers = {
+            'x-rapidapi-host': "coronavirus-monitor.p.rapidapi.com",
+            'x-rapidapi-key': "db5da9c3bcmsh732ce95c62ebea7p19777ejsn61d83d88dea6"
+        }
+        response = requests.request("GET", url, headers=headers)
 
-    country = response.json()['countries_stat']
-    new = sorted(country, key=lambda i: int(i['cases'].replace(',', '')), reverse=True)
-    context2 = new[0:15]
-    context3 = context2
-    for j in context3:
-        j.pop('region')
-    labels = []
-    data = []
-    total = []
-    # print(context3)
-    for entry in context2:
-        labels.append(entry['country_name'])
-        data.append(int(entry['deaths'].replace(',', '')))
-        total.append(int(entry['cases'].replace(',', '')))
-    pielabel = []
-    pievalues = []
-    for x, y in result[0].items():
-        pielabel.append(x)
-        pievalues.append(y)
+        country = response.json()['countries_stat']
+        new = sorted(country, key=lambda i: int(i['cases'].replace(',', '')), reverse=True)
+        context2 = new[0:15]
+        context3 = context2
+        for j in context3:
+            j.pop('region')
+        labels = []
+        data = []
+        total = []
+        # print(context3)
+        for entry in context2:
+            labels.append(entry['country_name'])
+            data.append(int(entry['deaths'].replace(',', '')))
+            total.append(int(entry['cases'].replace(',', '')))
+        pielabel = []
+        pievalues = []
+        for x, y in result[0].items():
+            pielabel.append(x)
+            pievalues.append(y)
 
-    def scatter():
-        years = labels
+        def scatter():
+            years = labels
 
-        fig = go.Figure()
-        fig.add_trace(go.Bar(x=years,
-                             y=data,
-                             name='deaths',
-                             marker_color='rgb(55, 83, 109)'
-                             ))
-        fig.add_trace(go.Bar(x=years,
-                             y=total,
-                             name='total cases',
-                             marker_color='rgb(26, 118, 255)'
-                             ))
+            fig = go.Figure()
+            fig.add_trace(go.Bar(x=years,
+                                 y=data,
+                                 name='deaths',
+                                 marker_color='rgb(55, 83, 109)'
+                                 ))
+            fig.add_trace(go.Bar(x=years,
+                                 y=total,
+                                 name='total cases',
+                                 marker_color='rgb(26, 118, 255)'
+                                 ))
 
-        fig.update_layout(
-            title='Cases and deaths by corona in world',
-            xaxis_tickfont_size=14,
-            yaxis=dict(
-                title='population',
-                titlefont_size=16,
-                tickfont_size=14,
-            ),
-            legend=dict(
-                x=1.0,
-                y=1.0,
-                bgcolor='rgba(255, 255, 255, 0)',
-                bordercolor='rgba(255, 255, 255, 0)'
-            ),
-            barmode='group',
-            bargap=0.15,  # gap between bars of adjacent location coordinates.
-            bargroupgap=0.1  # gap between bars of the same location coordinate.
-        )
-        plot_div = plot(fig, output_type='div', include_plotlyjs=False)
-        return plot_div
+            fig.update_layout(
+                title='Cases and deaths by corona in world',
+                xaxis_tickfont_size=14,
+                yaxis=dict(
+                    title='population',
+                    titlefont_size=16,
+                    tickfont_size=14,
+                ),
+                legend=dict(
+                    x=1.0,
+                    y=1.0,
+                    bgcolor='rgba(255, 255, 255, 0)',
+                    bordercolor='rgba(255, 255, 255, 0)'
+                ),
+                barmode='group',
+                bargap=0.15,  # gap between bars of adjacent location coordinates.
+                bargroupgap=0.1  # gap between bars of the same location coordinate.
+            )
+            plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+            return plot_div
 
-    def pie():
-        labels = pielabel
-        values = pievalues
+        def pie():
+            labels = pielabel
+            values = pievalues
 
-        fig = go.Figure(data=[go.Pie(labels=labels, values=values, textinfo='label+percent',
-                                     insidetextorientation='radial',
-                                     hole=.3)])
-        plot_div = plot(fig, output_type='div', include_plotlyjs=False)
-        return plot_div
-    def world():
-        import pandas as pd
+            fig = go.Figure(data=[go.Pie(labels=labels, values=values, textinfo='label+percent',
+                                         insidetextorientation='radial',
+                                         hole=.3)])
+            plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+            return plot_div
+        def world():
+            import pandas as pd
 
-        df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv')
+            df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv')
 
-        fig = go.Figure(data=go.Choropleth(
-            locations=df['CODE'],
-            z=df['GDP (BILLIONS)'],
-            text=df['COUNTRY'],
-            colorscale='Blues',
-            autocolorscale=False,
-            reversescale=True,
-            marker_line_color='darkgray',
-            marker_line_width=0.5,
-            colorbar_tickprefix='',
-            colorbar_title='DEARTHS BT CORONA',
-        ))
+            fig = go.Figure(data=go.Choropleth(
+                locations=df['CODE'],
+                z=df['GDP (BILLIONS)'],
+                text=df['COUNTRY'],
+                colorscale='Blues',
+                autocolorscale=False,
+                reversescale=True,
+                marker_line_color='darkgray',
+                marker_line_width=0.5,
+                colorbar_tickprefix='',
+                colorbar_title='DEARTHS BT CORONA',
+            ))
 
-        fig.update_layout(
-            title_text='World Corona virus Analytics ',
-            geo=dict(
-                showframe=False,
-                showcoastlines=False,
-                projection_type='equirectangular'
-            ),
-            width=1000, height=600,
-            annotations=[dict(
-                x=0.55,
-                y=0.1,
-                xref='paper',
-                yref='paper',
-                text='Source: <a href="https://www.cia.gov/library/publications/the-world-factbook/fields/2195.html">\
-                    CORONA VIRUS</a>',
-                showarrow=False
-            )]
-        )
+            fig.update_layout(
+                title_text='World Corona virus Analytics ',
+                geo=dict(
+                    showframe=False,
+                    showcoastlines=False,
+                    projection_type='equirectangular'
+                ),
+                width=1000, height=600,
+                annotations=[dict(
+                    x=0.55,
+                    y=0.1,
+                    xref='paper',
+                    yref='paper',
+                    text='Source: <a href="https://www.cia.gov/library/publications/the-world-factbook/fields/2195.html">\
+                        CORONA VIRUS</a>',
+                    showarrow=False
+                )]
+            )
 
-        plot_div = plot(fig, output_type='div', include_plotlyjs=False)
-        return plot_div
+            plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+            return plot_div
 
-    context = {'result': {'total': result[0]}, 'country': context2, 'data': data, 'labels': labels, 'plot1': scatter(),'piechart':pie(),'world':world()}
+        context = {'result': {'total': result[0]}, 'country': context2, 'data': data, 'labels': labels, 'plot1': scatter(),'piechart':pie(),'world':world()}
 
-    return render(request, 'statistics.html', context)
+        return render(request, 'statistics.html', context)
+    except:
+        return HttpResponse("no api response")
 
 
 def newplotly(request):
